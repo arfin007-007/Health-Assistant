@@ -5,7 +5,7 @@ import 'package:development/IBW_Calculator.dart';
 
 import '../health_tips.dart'; // Import new page
 
-void main() => runApp(MyApp());
+void main() => runApp(MyApp());a
 
 class MyApp extends StatelessWidget {
   @override
