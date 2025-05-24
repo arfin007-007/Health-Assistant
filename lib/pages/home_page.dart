@@ -1,9 +1,10 @@
-import 'package:development/FoodAndNutritionPage.dart';
 import 'package:flutter/material.dart';
+import 'package:development/Blood_Bank.dart';
+import 'package:development/FoodAndNutritionPage.dart';
 import 'package:development/pages/BMI_Calculator.dart';
 import 'package:development/IBW_Calculator.dart';
-
-import '../health_tips.dart'; // Import new page
+import 'package:development/Find_Doctor.dart';
+import '../health_tips.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,10 +50,20 @@ class HomePage extends StatelessWidget {
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               children: [
-                _buildFeatureCard(context, 'Find a Doctor', Icons.local_hospital,
-                    'Locate doctors and book appointments'),
-                _buildFeatureCard(context, 'Blood Bank', Icons.bloodtype,
-                    'Find blood centers and donations'),
+                _buildFeatureCard(
+                  context,
+                  'Find a Doctor',
+                  Icons.local_hospital,
+                  'Locate doctors and book appointments',
+                  navigateToFindDoctor: true,
+                ),
+                _buildFeatureCard(
+                  context,
+                  'Blood Bank',
+                  Icons.bloodtype,
+                  'Find blood centers and donations',
+                  navigateToBloodBank: true,
+                ),
                 _buildFeatureCard(
                   context,
                   'Health Tips',
@@ -89,12 +100,9 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.accessibility), label: 'BMI'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.fitness_center), label: 'IBW'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble), label: 'Chatbot'),
+          BottomNavigationBarItem(icon: Icon(Icons.accessibility), label: 'BMI'),
+          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'IBW'),
+          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: 'Chatbot'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
@@ -110,6 +118,8 @@ class HomePage extends StatelessWidget {
         bool navigateToIBW = false,
         bool navigateToHealthTips = false,
         bool navigateToFoodAndNutrition = false,
+        bool navigateToFindDoctor = false,
+        bool navigateToBloodBank = false,
       }) {
     return Card(
       elevation: 4,
@@ -136,6 +146,16 @@ class HomePage extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => FoodAndNutritionPage()),
             );
+          } else if (navigateToFindDoctor) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FindDoctorScreen()),
+            );
+          } else if (navigateToBloodBank) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BloodBankScreen()),
+            );
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('More details coming soon for $title')),
@@ -150,8 +170,7 @@ class HomePage extends StatelessWidget {
               Icon(icon, size: 40, color: Colors.green),
               SizedBox(height: 10),
               Text(title,
-                  style: TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               SizedBox(height: 5),
               Text(description, textAlign: TextAlign.center),
             ],
